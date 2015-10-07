@@ -1,2 +1,6 @@
 # Ignore files that start with the prefix <fb>
 fb*
+
+# Ignore misc. vim stuff
+/vim/bundle/
+/vim/backups/

@@ -6,7 +6,6 @@ prompt clint
 export EDITOR=vim
 export VISUAL=vim
 
-##Aliases
 # Get operating system
 platform='unknown'
 unamestr=$(uname)
@@ -15,6 +14,8 @@ if [[ $unamestr == 'Linux' ]]; then
 elif [[ $unamestr == 'Darwin' ]]; then
   platform='darwin'
 fi
+
+##Aliases##
 
 # PS
 alias psa="ps aux"
@@ -48,6 +49,9 @@ alias screen='TERM=screen screen'
 alias cl='clear'
 alias v='vim'
 
+# always use warnings
+alias make='make -Wall'
+
 # mimic vim functions
 alias :q='exit'
 
@@ -64,7 +68,6 @@ alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall F
 
 # Homebrew
 alias brewu='brew update && brew upgrade && brew cleanup && brew prune && brew doctor'
-
 
 # Global aliases
 alias -g ...='../..'
@@ -90,5 +93,5 @@ if [ -f "$file" ]
 then
   source $file
 else
-  echo "$file not found."
+  echo "Facebook configs located in $file not found."
 fi

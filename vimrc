@@ -31,9 +31,9 @@ let mapleader=","
 " =============== Vundle Initialization ===============
 " This loads all the plugins specified in ~/.vim/vundles.vim
 " Use Vundle plugin to manage all other plugins
-"if filereadable(expand("~/.vim/vundles.vim"))
-"  source ~/.vim/vundles.vim
-"endif
+if filereadable(expand("~/.vim/vundles.vim"))
+  source ~/.vim/vundles.vim
+endif
 
 " ================ Turn Off Swap Files ==============
 
@@ -60,8 +60,10 @@ set softtabstop=2
 set tabstop=2
 set expandtab
 
-filetype plugin on
-filetype indent on
+" These options are incompatible with Vundle's requirement
+" that filetype be set to off, they both implicitly turn it on
+" filetype plugin on
+" filetype indent on
 
 " Display tabs and trailing spaces visually
 set list listchars=tab:\ \ ,trail:·
