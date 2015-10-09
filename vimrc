@@ -107,4 +107,4 @@ set ignorecase      " Ignore case when searching...
 set smartcase       " ...unless we type a capital
 
 " ================ Mappings ===========================
-:imap ii <Esc>
+:imap jk <Esc>
