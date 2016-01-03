@@ -13,6 +13,7 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are user installed plugins.
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-fugitive'
+Plugin 'altercation/vim-colors-solarized'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

@@ -59,6 +59,7 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 set expandtab
+set colorcolumn=121
 
 " These options are incompatible with Vundle's requirement
 " that filetype be set to off, they both implicitly turn it on
@@ -108,3 +109,10 @@ set smartcase       " ...unless we type a capital
 
 " ================ Mappings ===========================
 :imap jk <Esc>
+
+" ================ Colorscheme ===========================
+set term=screen-256color-bce
+let g:solarized_termcolors=256
+set t_Co=256
+set background=dark
+colorscheme default
