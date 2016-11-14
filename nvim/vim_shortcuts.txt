@@ -1,0 +1,426 @@
+Copied from https://github.com/danjenson/dotfiles/blob/master/vim_shortcuts.txt
+
+REQUIRED BACKGROUND:
+===============================================================================
+run `vimtutor` from command line.
+
+SETUP:
+===============================================================================
+cd && ln -s dotfiles/.vimrc . && ln -s dotfiles/.vim
+
+[OPTIONAL]: map caps lock to control key
+System Preferences -> Keyboard -> Modifer Keys... -> Caps Lock Key: ^ Control
+NOTE: if you have multiple keyboards, make sure you do this for all of them
+to avoid confusion.
+
+BASIC CONCEPTS:
+===============================================================================
+Vim modes:
+Normal
+Insert
+Command
+Search
+Visual
+Operator-pending
+Insert Normal (Ctrl+o, one bullet style)
+Replace
+
+Operator + Motion = Action
+
+Escape to Normal Mode:
+Escape      return to normal mode
+Ctrl+[      return to normal mode (same as Escape, but faster)
+
+SHORTCUTS:
+===============================================================================
+Basic movement* (Normal mode):
+(g)j        move down a (virtual) line
+(g)k        move up a (virtual) line
+(g)l        move right a (virtual) line
+(g)h        move left a (virtual) line
+(g)0        move to beginning of (virtual) line
+(g)^        move to first char in (virtual) line
+(g)$        move to last char in (virtual) line
+w           move to beginning of next word
+W           move to beginning of next WORD
+e           move to end of next word
+E           move to end of next WORD
+ge          move backwoard to end of previous word
+b           move to the beginning of a word (B for WORD)
+gg          move to first line in file
+G           move to last line in file
+{n}G        move to line n in file
+Shift+]     move down a block
+Shift+[     move up a block
+Ctrl+o      move to previous jump point
+''          move to previous jump point
+Ctrl+d      shift back one indent
+zz          move current line to center of screen
+zt          move current line to top of screen
+zb          move current line to bottom of screen
+
+*For more, run :h motion.txt in vim
+
+Moving and switching modes (Normal mode):
+.           repeat last insert mode sequence (. Formula: one move, one execute)
+u           undo last insert mode sequence
+a           move right one char and switch to insert mode
+A           move to end of line and switch to insert mode
+i           switch to insert mode at the current position
+I           move to beginning of line and switch to insert mode
+O           new line before current line and switch to insert mode
+o           new line after current line and switch to insert mode
+
+Editing (Normal, Visual modes):
+c{motion}   change
+C           change to end of line
+d{motion}   delete
+D           delete to end of line
+dd          delete current line
+y{motion}   yank into register
+yy          yank current line
+p           paste after current position
+P           paste before current position
+g~{motion}  swap case
+gu{motion}  make lowercase
+gU{motion}  make uppercase
+>{motion}   shift right
+>>          shift current line right
+<{motion}   shift left
+<<          shift current line left
+J           join current line and next line
+={motion}   autoindent
+!{motion}   drops into command mode with specified range selected
+
+ex. dt' = delete from cursor to char before '
+
+Editing (Insert mode):
+Ctrl+w          delete back one word
+Ctrl+u          delete back to start of line
+Ctrl+n          autocomplete with next option
+Ctrl+p          autocomplete with previous option
+Ctrl+y          in autocomplete menu, accept suggestion
+Ctrl+e          in autocomplete menu, discard and return to original word
+Ctrl+x+Ctrl+n   autocomplete with current buffer keywords
+Ctrl+x+Ctrl+i   autocomplete with file keywords
+Ctrl+x+Ctrl+]   autocomplete with tags keywords
+Ctrl+x+Ctrl+k   autocomplete with dictionary lookup (:set spell)
+Ctrl+x+Ctrl+s   autocomplete with dictionary entry
+Ctrl+x+Ctrl+l   autocomplete entire line
+Ctrl+x+Ctrl+f   autocomplete filename
+Ctrl+x+Ctrl+o   omni-completion
+
+Supertab:
+Tab             autocomplete when turned on
+\Tab            toggle
+\Space          autocomplete when Supertab turned off
+
+Editing (Replace mode):
+r{char}     replace current char with {char}
+R{chars}    replace all chars on line with chars until escaped
+
+Searching (Search mode, initiated from Normal mode):
+*           search file for every other occurence of word under cursor
+/{pattern}  search entire file forward for pattern
+?{pattern}  search entire file backwards for pattern
+n           next search result
+N           previous search result
+f{char}     find the next char in the current line
+F{char}     same as above, but reverse direction
+t{char}     find the next char in the currnet line; place cursor before char
+T{char}     same as above, but reverse direction
+;           repeat last search (often used in conjunction with .)
+,           repeat last search in reverse direction
+
+Selection (Visual mode):
+v           initiate visual mode at character level
+V           initiate visual mode at line level
+Ctrl+v      initiate visual mode at block level
+gv          reselect last visual selection
+o           go to other end of visual selection
+
+Special selectors (Normal, Visual modes):
+it          select inside current XML tag, i.e. <xml>DeleteThis</xml>
+at          select around current tag
+iw          current word
+iW          current WORD
+is          current sentence
+ip          current paragraph
+aw          current word plus one space
+aW          current WORD plus one space
+as          current sentence plus one space
+ap          current paragraph plus one space
+i{punct}    select inside {punct}
+a{punct}    select around {punct}
+{punct}     any of:  ) } ] ' " ` >
+
+ex. daw = delete a word and trailing space
+ex. ciw = delete current word, switch to insert mode
+
+Commands (Command/Ex mode, see vim-unimpared plugin for shortcuts):
+:                       initiate command line mode
+/                       initiate command line mode (search)
+Ctrl+r+=                initiate command line mode (expression evaluator)
+:w                      save current buffter to file
+:wa                     save all open buffers
+:w {file}               save current buffer to {file}
+:e {file}               edit file named {file}
+:e! {file}              discard changes in current buffer and edit {file}
+:q                      quit
+:q!                     force quit (don't save changes)
+:qa!                    force close all buffers (don't save changes)
+:E                      directory explorer (Ctrl+^ to switch back to buffer)
+:find {file}            find file with name {file}; checks vim path
+:{range}d{x}            delete range and put in register x
+:{range}y{x}            yank range and put in register x
+:{line}p{x}             paste text in register x after line
+:{range}t {line}        copy range and paste below line
+:{range}m {line}        move lines to specified line
+:{range}join            put all lines in range on the same line
+:{range}normal{cmd}     execute normal mode {cmd} on range
+:{range}s/{pattern}/{replacement}/{options}
+                        subsitute over a given range with various options
+:{range}/{search_pattern}/s/{pattern}/{replacement}/{options}
+                        on each line that matches search_pattern, replace
+                        pattern with replacement
+:{range}global/{pattern}/{cmd}
+                        execute an Ex {cmd} on all lines matching pattern
+:noh                    no highlights (after searching)
+:%                      shortcut for whole file (used as {range})
+:Up/:Down               browse command history
+:!{bash cmd} {range}    execute a bash {cmd} on a given range
+:{range}read !{cmd}     execute bash {cmd} and put contents in current buffer
+:{range}w !{cmd}        use contents of current buffer as stdin to bash {cmd}
+:{range}!{filter}       run range through external filter
+:ls                     list current buffers if you loaded multiple buffers
+:bn                     switch to next buffer
+:bp                     switch to previous buffer
+:bd {n}                 delete buffer n
+:bufdo {cmd}            execute {cmd} on all buffers
+:args {file}            populate the argument list for grouping buffers
+:argdo {cmd}            execute {cmd} on all files in arg list
+:next                   switch to next file in arg list
+:prev                   switch to previous file in arg list
+:windo {cmd}            execute {cmd} on all windows
+
+ex. :134,150m 152 = move lines 134 to 150 to line 152
+ex. :%s/banana/apple/gc = replace apple with banana; ask for confirmation
+ex. :!python % = execute entire file (%) with python
+ex. :134,150!sort -t',', -k2 = sort lines 134 to 150 by column 2
+
+Screen management (Normal, Command modes):
+|           vertical split window
+Ctrl+_      horizontal split window
+Ctrl+w+_    maximize height of current window
+Ctrl+w+|    maximize width of current window
+Ctrl+w+=    equalize all windows
+Ctrl+j      move down a screen
+Ctrl+k      move up a screen
+Ctrl+l      move right a screen
+Ctrl+h      move left a screen
+:cl         close current window
+:on         keep only current window
+
+ADVANCED:
+===============================================================================
+Random:
+:set paste(!)       turn on (off) paste for pasting from clipboard
+:pwd                print present working directory
+@:                  repeat an Ex command
+\\                  comment out lines [if vim-commentary installed]
+%                   move between sets of parenthesis
+:set path+={path}   add {path} to current search path for vim
+{n}Ctrl-a           add n to the first number in current line (repeat for tmux)
+{n}Ctrl-x           subtract n from the first number in current line
+:Stab               set tab-width
+Ctrl+r+=            access expression register
+q:                  open command line window with history of commands
+q/                  open command line window with history of searches
+Ctrl+f              with command line window, open new window with contents
+:grep {pattern}     runs grep -n {pattern} in a shell
+:make               compile current directory
+g/TODO              print anything that matches TODO
+:h option-list      see options that you can change
+:so {*.vim}         source a vim file that applies special settings
+
+Registers:
+"{register}         access {register} from normal mode
+Ctrl+r{register}    access {register} from insert mode
+:reg {register}     access {register} from command line mode; no arg for all
+""                  unnamed register; default for delete, yank, change
+"0                  default register for yank
+"+                  paste from X11 clipboard
+"%                  name of current file
+"#                  name of alternate file
+".                  last inserted text
+":                  last Ex command
+"/                  last search command
+
+ex. "ayy = put current line in register a
+
+Pattern matching and substitution:
+/                   regular search, special chars must be escaped
+/\v{pattern}        special chars (i.e. ), }, /) assume special meaning
+/\V{pattern}        literal search, no special chars
+/\v({pattern})      capture pattern
+\r                  carriage return
+\t                  tab
+\\                  single backslash
+\0                  entire matched pattern
+\1                  first captured group
+\2                  second captured group
+~                   use string from previous invocation of substitute
+\=                  evaluate vim script
+
+Substitution controls:
+y                   yes
+n                   no
+q                   quit
+l                   substitute this, then quit
+a                   substitute this and any remaining matches
+Ctrl+e              scroll screen up
+Ctrl+y              scroll screen down
+
+Macros:
+q{register}{cmds}q  record a macro in {register}
+@{register}         replays {register}
+@@                  repeats last macro
+{n}@{register}      repeat {register} {n} times
+
+Marks:
+m{a-zA-Z}           place a mark at the current location (capital = global)
+'{mark}             moves to the line where the mark was set
+`{mark}             move to the location where the mark was set
+``                  move to position before the last jump within current file
+`.                  move to location of last change
+`^                  move to location of last insertion
+`[                  move to start of last change or yank
+`]                  move to end of last change or yank
+`<                  move to start of last visual selection
+`>                  move to end of last visual selection
+
+Unimpared vim plugin:
+[a         :previous (arg list)
+]a         :next (arg list)
+[A         :first (arg list)
+]A         :last (arg list)
+[b         :bprevious (buffer list)
+]b         :bnext (buffer list)
+[B         :bfirst (buffer list)
+]B         :blast (buffer list)
+[l         :lprevious (location list)
+]l         :lnext (location list)
+[L         :lfirst (location list)
+]L         :llast (location list)
+[<C-L>     :lpfile (location list)
+]<C-L>     :lnfile (location list)
+[q         :cprevious (quickfix list)
+]q         :cnext (quickfix list)
+[Q         :cfirst (quickfix list)
+]Q         :clast (quickfix list)
+[<C-Q>     :cpfile (quickfix list)
+]<C-Q>     :cnfile (quickfix list)
+[t         :tprevious (tags)
+]t         :tnext (tags)
+[T         :tfirst (tags)
+]T         :tlast (tags)
+
+(Note that <C-Q> only works in a terminal if you disable flow control:
+stty -ixon)
+
+Quicklist management (see vim-unimpared plugin):
+:cnext          jump to next item
+:cprev          jump to previous item
+:cfirst         jump to first item
+:clast          jump to last item
+:cnfile         jump to first item in next file
+:cpfile         jump to last item in previous file
+:cc {n}         jump to item n
+:copen          open the quickfix window
+:cclose         open the quickfix window
+:colder         recall previous list (vim stores past 10)
+:cnewer         open newer list
+
+Location list management (secondary list, see vim-unimpared plugin):
+:lnext          jump to next item
+:lprev          jump to previous item
+:lfirst         jump to first item
+:llast          jump to last item
+:lnfile         jump to first item in next file
+:lpfile         jump to last item in previous file
+:ll {n}         jump to item n
+:lopen          open the quickfix window
+:lclose         open the quickfix window
+
+Example filetype listening command for vimrc:
+if has("autocmd")
+    filetype on
+    autocmd FileType ruby setlocal ts=2 sts=2 sw=2 et
+    autocmd FileType javascript setlocal ts=4 sts=4 sw=4 noet
+    autocmd FileType javascript compiler nodelint
+endif
+
+Example filetype listing command for each language:
+~/.vim/after/ftplugin/javascript.vim
+setlocal ts=4 sts=4 sw=4 noet
+compiler nodelint
+
+RIDCULOUSLY ADVANCED (and probably useless):
+===============================================================================
+Tab management (Normal, Command modes):
+Ctrl+T          move active window to its own tab
+{n}gt           move to tab {n}
+gt              move to next tab
+gT              move to previous tab
+:Te             open new tab Explore
+:tabe {file}    open {file} in new vim tab
+:tabc           close current tab
+:tabf {file}    open new tab with find {file}
+:tabo           keep only current tab
+:tabn           move to next tab
+:tabp           move to previous tab
+
+Code folding:
+zf{n}j          creates a fold from the cursor down {n} lines
+zf/{str}        creates a fold from cursor to {str}
+zk              previous fold
+zj              next fold
+zo              opens fold at cursor
+zO              opens all folds at cursor
+zm              increases fold level by one
+zM              closes all open folds
+zr              decreases fold level by one
+zR              opens all folds (decreases fold level to 0)
+zd              deletes the fold at the cursor
+zE              deletes all folds
+[z              move to start of open fold
+]z              move to end of open fold
+
+Spell checking (Normal mode):
+:set spell      initialize spell checker
+]s              jump to next spelling error
+[s              jump to previous spelling error
+z=              suggest corrections for current word
+zg              add current word to spell file
+zw              remove current word from spell file
+zug             revert last zg or zw command
+
+Random:
+Ctrl+v          type in Unicode character code for special character
+ga              get unicode numeric code for char under cursor
+g+R             virtual replace mode; allows moving through tab chars as spaces
+Ctrl+d          on command line, suggests tab completions
+Ctrl+r+Ctrl+w   on command line, populates with current word under cursor
+**              glob character that searches recursively into directories
+:edit %<Tab>    extend file path of current buffer
+:edit %:h<Tab>  extend file path of current buffer, remove filename
+:jumps          list jumps
+gf              move to filename under cursor
+:%s//~/&        replace the last search with the last string with last flags
+g&              substitute for inserting % in %s of previous command
+
+TODO:
+Page 190: boundary searching
+Page 249: ctags
+Page 267: formatting errorformats
+Page 271: formatting grep results; redirecting to ack

@@ -1,0 +1,21 @@
+[ui]
+username = Christopher Zehner <cbzehner@fb.com>
+editor = vim
+
+[alias]
+untrack = rm -Af
+switch = rebase -d remote/master -s
+
+[defaults]
+addremove = --similarity 100
+diff = --noprefix
+//show = --noprefix
+
+[extensions]
+evolve =
+fbamend=!
+directaccess=!
+inhibit=!
+
+[experimental]                                                                
+evolution=all
