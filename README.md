@@ -8,6 +8,9 @@
 * Silver Searcher (ag)
 * Terminal Multiplexer (tmux)
 
+## Fonts
+Anonymous Pro (a really great font)
+
 ## Life
 * Redshift (http://jonls.dk/redshift/)[2]
 
