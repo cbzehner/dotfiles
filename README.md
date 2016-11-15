@@ -7,6 +7,7 @@
 * Neovim (nvim)[1]
 * Silver Searcher (ag)
 * Terminal Multiplexer (tmux)
+* Gitless (fix Git's rough edges)
 
 ## Fonts
 Anonymous Pro (a really great font)

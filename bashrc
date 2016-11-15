@@ -3,6 +3,24 @@
 # break utilities that use ssh as a pipe, including git and mercurial.
 # [ -z "$PS1" ] && return
 
+# System defined settings
+# Elementary OS has an odd behavior where it overrides the default bashrc. Load
+# the operating system config from a standard bashrc instead.
+
+if [ -f ~/.config/dotfiles/elementary_bash ]; then
+    . ~/.config/dotfiles/elementary_bash
+fi
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+
 # Set vim as the default editor
 export EDITOR=vim
 export VISUAL=vim
