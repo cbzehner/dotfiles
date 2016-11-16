@@ -43,10 +43,10 @@ shopt -s cmdhist # Save multi-line commands on a single line in history
 set -o noclobber
 
 # Pull in FB-specific configs
-# file='/home/cbzehner/.fbrc'
-# if [ -e $file ]; then
-#  source $file
-# else
-#  echo "Facebook configs located in $file not found."
-# fi
+file='/home/cbzehner/.fbrc'
+if [ -e $file ]; then
+ source $file
+else
+ echo "Facebook configs located in $file not found."
+fi
 
