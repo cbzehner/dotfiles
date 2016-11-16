@@ -21,9 +21,9 @@ if [ -f ~/.config/dotfiles/bash_aliases ]; then
 fi
 
 
-# Set vim as the default editor
-export EDITOR=vim
-export VISUAL=vim
+# Set neovim as the default editor
+export EDITOR=nvim
+export VISUAL=nvim
 
 # Enable Vi key bindings in the shell
 set -o vi
@@ -43,7 +43,7 @@ shopt -s cmdhist # Save multi-line commands on a single line in history
 set -o noclobber
 
 # Pull in FB-specific configs
-file='/home/cbzehner/.fbrc'
+file='/home/cbzehner/.config/dotfiles/fbrc'
 if [ -e $file ]; then
  source $file
 else
