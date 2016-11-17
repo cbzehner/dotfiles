@@ -109,6 +109,9 @@ imap jk <Esc>
 " Toggle paste mode
 :nnoremap <Leader>p :set paste!<CR>
 
+" Highlight characters which exceed 80 columns in length
+match ErrorMsg '\%>80v.\+'
+
 " Highlight current cursor column
 :hi CursorColumn cterm=NONE ctermbg=237 ctermfg=white
 :set cursorcolumn

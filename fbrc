@@ -1,0 +1,102 @@
+# Facebook Aliases
+alias arcpb='arc pull && arc build'
+alias autoload="hh build '~/local/www-hg' --steps autoload-map"
+alias chgs="hg st --rev '.^'"
+alias debug='hphpd -h localhost'
+alias fbdev='mosh -6 dev6572.prn1.facebook.com'
+alias fbbe='vim ~/dotfiles/fbrc'
+alias gotomaster='hg up remote/master'
+alias graphtohell='scripts/entschema/gencode -s EntSRTJobGMSSchema'
+alias hhc='hh --color'
+alias hhl="hh | wc -l"
+alias madness='hg update --clean -r . && hg purge'
+alias pc='prompt clint'
+alias proxy='http_proxy=http://fwdproxy:8080/ https_proxy=$http_proxy ftp_proxy=$http_proxy '
+alias restart_dan='hwc power_reset devvm4884.prn1'
+alias restart_me='hwc power_reset dev6572.prn1'
+alias strictify="find . -type f -name '*.php' ! -exec grep -q '<\?hh // strict' {} \; -print"
+alias tbgs='tbgs -s -c auto'
+alias tbgf='tbgf -s -c auto'
+alias tbgr='tbgr -s -c auto'
+alias www='cd ~/www'
+
+# Rebase and switch branches without needing to reinitialize hh_server.
+switch() {
+  hg rebase -d remote/master -s $1 && hg up $1;
+}
+
+# Various ways of finding files that need // strict added to them.
+alias unstrict="find . -type f -name '*.php' ! -exec grep -q '<\?hh // strict' {} \; -print"
+alias unstrict_recent="find . -type f -name '*.php' ! -exec grep -q '<\?hh // strict' {} \; -printf '%TY-%Tm-%Td %p\n' | sort -n"
+
+# Compare two diffs
+hgdiff() {
+  hg diff -r $1 $2
+}
+alias hgd=hgdiff
+
+hgrevert() {
+  hg revert -r $1 $2
+}
+alias hgr=hgrevert
+
+# Smart alias for running gencode on EntSchema
+entgencode() {
+  if [ "$1" = "-m" -o "$1" = "--merge" ]; then
+    ~/www/scripts/entschema/gencode --merge -s $2
+  else
+    ~/www/scripts/entschema/gencode -s $1 $2
+  fi
+}
+alias gcs=entgencode
+
+# Smart alias for running gencode on EntPatterns
+patterngencode() {
+  if [ "$1" = "-m" -o "$1" = "--merge" ]; then
+    ~/www/scripts/entschema/gencode --merge -p $2
+  else
+    ~/www/scripts/entschema/gencode -p $1 $2
+  fi
+}
+alias gcp=patterngencode
+
+# Source Facebook definitions
+if [ -f /mnt/vol/engshare/admin/scripts/master.bashrc ]; then
+	. /mnt/vol/engshare/admin/scripts/master.bashrc
+fi
+
+# Source Facebook command prompt
+if [ -f /mnt/vol/engshare/admin/scripts/scm-prompt ]; then
+  . /mnt/vol/engshare/admin/scripts/scm-prompt
+fi
+
+# Set up FB prompt
+function parse_hg_branch {
+  if [[ -n $(_dotfiles_scm_info) ]]; then
+    # wrap in parens
+    echo "$(_dotfiles_scm_info)"
+  fi
+}
+
+# Show current hg bookmark
+function hgproml {
+  # here are a bunch of colors in case
+  # you want to get colorful
+  local         BLUE="\[\033[0;34m\]"
+  local          RED="\[\033[0;31m\]"
+  local    LIGHT_RED="\[\033[1;31m\]"
+  local       GREEN="\[\033[0;32m\]"
+  local  LIGHT_GREEN="\[\033[1;32m\]"
+  local        WHITE="\[\033[1;37m\]"
+  local   LIGHT_GRAY="\[\033[0;37m\]"
+  local       PURPLE="[\033[0;35m\]"
+  local LIGHT_PURPLE="\[\033[1;35m\]"
+  local RESET_COLOR="\[\033[0m\]"
+
+  export PS1="\
+$GREEN[\u:$LIGHT_RED\w$LIGHT_GRAY:$LIGHT_PURPLE\$(parse_hg_branch)$GREEN]\
+\$$RESET_COLOR "
+PS2='> '
+PS4='+ '
+}
+hgproml
