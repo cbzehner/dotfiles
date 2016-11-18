@@ -1,6 +1,6 @@
 [ui]
 username = Christopher Zehner <cbzehner@fb.com>
-editor = vim
+editor = nvim
 
 [alias]
 untrack = rm -Af
@@ -17,5 +17,5 @@ fbamend=!
 directaccess=!
 inhibit=!
 
-[experimental]                                                                
+[experimental]
 evolution=all
