@@ -107,7 +107,7 @@ let mapleader = ","
 imap jk <Esc>
 
 " Toggle paste mode
-:nnoremap <Leader>p :set paste!<CR>
+":nnoremap <Leader>p :set paste!<CR>
 
 " Highlight characters which exceed 80 columns in length
 match ErrorMsg '\%>80v.\+'
