@@ -106,6 +106,12 @@ nnoremap Q @q   " Use Q to execute default register.
 let mapleader = ","
 imap jk <Esc>
 
+" Remap the window commands to <Leader><key> combination
+ map <leader>h :wincmd h<CR>
+ map <leader>j :wincmd j<CR>
+ map <leader>k :wincmd k<CR>
+ map <leader>l :wincmd l<CR>
+
 " Toggle paste mode
 ":nnoremap <Leader>p :set paste!<CR>
 
@@ -178,9 +184,3 @@ if &t_Co == 256
     let cmdline_color_warn = 1
     let cmdline_color_index = 186
 endif
-
-" Elm.vim
-nnoremap <leader>el :ElmEvalLine<CR>
-nnoremap <leader>er :ElmRepl<CR>
-vnoremap <leader>es :<C-u>ElmEvalSelection<CR>
-nnoremap <leader>em :ElmMakeCurrentFile<CR>

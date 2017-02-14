@@ -1,0 +1,22 @@
+[ui]
+username = Christopher Zehner <cbzehner@fb.com>
+editor = nvim
+
+[alias]
+#diff = diff --noprefix --root . --color always | less -r
+cabinet = !hg shelve && hg pull && hg update master && hg unshelve
+changes = st --rev '.^'
+head = up remote/master
+sl = sl --pager always -T'{slf}'
+stack = ssl -r top%master
+switch = rebase -d remote/master -s
+undo = revert -r .~1
+untrack = rm -Af
+
+[templatealias]
+slf = '{sl}{files%"- {file}\n"}\n'
+
+[defaults]
+addremove = --similarity 100
+diff = --noprefix
+//show = --noprefix
