@@ -23,6 +23,10 @@ Plug 'lambdatoast/elm.vim', { 'for': [ 'elm' ] }
 Plug 'neovimhaskell/haskell-vim', { 'for': [ 'haskell', 'cabal' ] }
 "   Lisp
 Plug 'vim-scripts/paredit.vim', { 'for': [ 'scheme', 'lisp', 'commonlisp' ] }
+"   Hack/HHVM
+Plug 'hhvm/vim-hack', { 'for': [ 'php' ] }
+"   Javascript
+Plug 'flowtype/vim-flow', { 'for': [ 'javascript' ] }
 call plug#end()
 
 
@@ -163,6 +167,60 @@ let cmdline_term_height = 15  " Initial height of interpreter window or pane
 let cmdline_term_width = 80   " Initial width of interpreter window or pane
 let cmdline_tmp_dir = '/tmp'  " Temporary directory to save files
 let cmdline_outhl = 1         " Syntax highlight the output
+
+" html5 syntax
+let g:html5_event_handler_attributes_complete = 0
+let g:html5_rdfa_attributes_complete = 0
+let g:html5_microdata_attributes_complete = 0
+let g:html5_aria_attributes_complete = 0
+
+" javascript
+let g:jsx_ext_required = 0
+
+" flow
+let g:flow#autoclose = 1
+let g:flow#enable = 0
+
+" go to definition
+noremap gd :<C-U>call <SID>go_to_definition()<CR>
+function! s:go_to_definition()
+  if &filetype =~ 'javascript'
+    FlowJumpToDef
+  elseif &filetype =~ 'php'
+    HackGotoDef
+  else
+    normal! gd
+  endif
+endfunction
+
+" get type info
+noremap K :<C-U>call <SID>get_help()<CR>
+function! s:get_help()
+  if &filetype =~ 'javascript'
+    FlowType
+  elseif &filetype =~ 'php'
+    HackType
+  else
+    normal! K
+  endif
+endfunction
+
+" merge conflict motion, borrowed from tpope/vim-unimpaired
+noremap [n :<C-U>call <SID>next_conflict(1)<CR>
+noremap ]n :<C-U>call <SID>next_conflict(0)<CR>
+function! s:next_conflict(reverse)
+  call search('^\(@@ .* @@\|[<=>|]\{7}[<=>|]\@!\)', a:reverse ? 'bW' : 'W')
+endfunction
+
+" fb specifics
+let g:hack#enable = 0
+let g:fb_default_opts = 0
+try
+  source $ADMIN_SCRIPTS/master.vimrc
+  source /home/engshare/admin/scripts/vim/biggrep.vim
+catch
+endtry
+
 "   Specify syntax highlighting colors
 if &t_Co == 256
     let cmdline_color_input = 247

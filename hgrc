@@ -4,6 +4,7 @@ editor = nvim
 
 [alias]
 #diff = diff --noprefix --root . --color always | less -r
+amend = amend --rebase
 cabinet = !hg shelve && hg pull && hg update master && hg unshelve
 changes = st --rev '.^'
 head = up remote/master
