@@ -21,6 +21,9 @@ Plug 'vim-pandoc/vim-pandoc-syntax', { 'for': [ 'pandoc', 'markdown' ] }
 Plug 'lambdatoast/elm.vim', { 'for': [ 'elm' ] }
 "   Haskell
 Plug 'neovimhaskell/haskell-vim', { 'for': [ 'haskell', 'cabal' ] }
+Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
+Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
+
 "   Lisp
 Plug 'vim-scripts/paredit.vim', { 'for': [ 'scheme', 'lisp', 'commonlisp' ] }
 "   Hack/HHVM
@@ -45,6 +48,7 @@ set expandtab           " Insert spaces when TAB is pressed.
 set tabstop=2           " Render TABs using this many spaces.
 set shiftwidth=2        " Indentation amount for < and > commands.
 
+set termguicolors       " Enable True Color (https://gist.github.com/XVilka/8346728)
 set noerrorbells        " No beeps.
 set modeline            " Enable modeline.
 set esckeys             " Cursor keys in insert mode.
@@ -142,21 +146,21 @@ function! ExecuteMacroOverVisualRange()
 endfunction
 
 
-" |--- Misc ---|
-" Vala Language Support
-"   Set detection of Vala files (https://wiki.gnome.org/Projects/Vala/Vim)
-autocmd BufRead *.vala,*.vapi set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
-autocmd BufRead,BufNewFile *.vala,*.vapi setfiletype vala
-"   Set vala files to default to 4 spaces
-autocmd FileType vala setlocal shiftwidth=2 softtabstop=4
-
-
 " |--- Plugins ---|
 " Neomake
-"   Automatically run linter on save
-autocmd! BufWritePost * Neomake
+" Run NeoMake on read and write operations
+autocmd! BufReadPost,BufWritePost * Neomake
 
-" Deoplete
+" Disable inherited syntastic
+let g:syntastic_mode_map = {
+  \ "mode": "passive",
+  \ "active_filetypes": [],
+  \ "passive_filetypes": [] }
+
+let g:neomake_serialize = 1
+let g:neomake_serialize_abort_on_error = 1
+
+" Use Deoplete
 let g:deoplete#enable_at_startup = 1
 
 " Vim CmdLine
@@ -212,6 +216,22 @@ function! s:next_conflict(reverse)
   call search('^\(@@ .* @@\|[<=>|]\{7}[<=>|]\@!\)', a:reverse ? 'bW' : 'W')
 endfunction
 
+
+" |--- Language Specific ---|
+" Vala
+"   Set detection of Vala files (https://wiki.gnome.org/Projects/Vala/Vim)
+autocmd BufRead *.vala,*.vapi set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
+autocmd BufRead,BufNewFile *.vala,*.vapi setfiletype vala
+"   Set vala files to default to 4 spaces
+autocmd FileType vala setlocal shiftwidth=2 softtabstop=4
+
+" Haskell
+" Use neco-ghc for completion
+let g:haskellmode_completion_ghc = 1
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+
+" |--- Misc. ---|
 " fb specifics
 let g:hack#enable = 0
 let g:fb_default_opts = 0
