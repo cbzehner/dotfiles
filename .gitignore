@@ -38,10 +38,10 @@ Thumbs.db
 
 # Directories #
 ###############
-nvim/plugged/   # VimPlug plugins for Neovim
-build/          # Build directories
-tmp/            # Temporary directories
-temp/           # Temporary directories
+plugged/  # VimPlug plugins for Neovim
+build/    # Build directories
+tmp/      # Temporary directories
+temp/     # Temporary directories
 
 # Files #
 #########
