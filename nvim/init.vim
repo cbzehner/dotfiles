@@ -10,6 +10,8 @@ Plug 'ervandew/supertab'
 Plug 'vim-airline/vim-airline'
 
 " Utilities
+"   Autoformatter for a variety of languages
+Plug 'Chiel92/vim-autoformat'
 "   Vim CmdLine
 Plug 'jalvesaq/vimcmdline'
 "   Pandoc / Markdown
@@ -23,7 +25,7 @@ Plug 'lambdatoast/elm.vim', { 'for': [ 'elm' ] }
 Plug 'neovimhaskell/haskell-vim', { 'for': [ 'haskell', 'cabal' ] }
 Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
-
+Plug 'mpickering/hlint-refactor-vim', {'for': 'haskell'}
 "   Lisp
 Plug 'vim-scripts/paredit.vim', { 'for': [ 'scheme', 'lisp', 'commonlisp' ] }
 "   Hack/HHVM
@@ -48,7 +50,7 @@ set expandtab           " Insert spaces when TAB is pressed.
 set tabstop=2           " Render TABs using this many spaces.
 set shiftwidth=2        " Indentation amount for < and > commands.
 
-set termguicolors       " Enable True Color (https://gist.github.com/XVilka/8346728)
+"set termguicolors      " Enable True Color (https://gist.github.com/XVilka/8346728)
 set noerrorbells        " No beeps.
 set modeline            " Enable modeline.
 set esckeys             " Cursor keys in insert mode.
@@ -115,10 +117,10 @@ let mapleader = ","
 imap jk <Esc>
 
 " Remap the window commands to <Leader><key> combination
- map <leader>h :wincmd h<CR>
- map <leader>j :wincmd j<CR>
- map <leader>k :wincmd k<CR>
- map <leader>l :wincmd l<CR>
+map <leader>h :wincmd h<CR>
+map <leader>j :wincmd j<CR>
+map <leader>k :wincmd k<CR>
+map <leader>l :wincmd l<CR>
 
 " Toggle paste mode
 ":nnoremap <Leader>p :set paste!<CR>
@@ -153,9 +155,9 @@ autocmd! BufReadPost,BufWritePost * Neomake
 
 " Disable inherited syntastic
 let g:syntastic_mode_map = {
-  \ "mode": "passive",
-  \ "active_filetypes": [],
-  \ "passive_filetypes": [] }
+      \ "mode": "passive",
+      \ "active_filetypes": [],
+      \ "passive_filetypes": [] }
 
 let g:neomake_serialize = 1
 let g:neomake_serialize_abort_on_error = 1
@@ -226,7 +228,12 @@ autocmd BufRead,BufNewFile *.vala,*.vapi setfiletype vala
 autocmd FileType vala setlocal shiftwidth=2 softtabstop=4
 
 " Haskell
-" Use neco-ghc for completion
+"   Hook into ghc-mod's code competion capabilities
+map <silent> tw :GhcModTypeInsert<CR>
+map <silent> ts :GhcModSplitFunCase<CR>
+map <silent> tq :GhcModType<CR>
+map <silent> te :GhcModTypeClear<CR>
+"   Use neco-ghc for completion
 let g:haskellmode_completion_ghc = 1
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
@@ -243,22 +250,22 @@ endtry
 
 "   Specify syntax highlighting colors
 if &t_Co == 256
-    let cmdline_color_input = 247
-    let cmdline_color_normal = 39
-    let cmdline_color_number = 51
-    let cmdline_color_integer = 51
-    let cmdline_color_float = 51
-    let cmdline_color_complex = 51
-    let cmdline_color_negnum = 183
-    let cmdline_color_negfloat = 183
-    let cmdline_color_date = 43
-    let cmdline_color_true = 78
-    let cmdline_color_false = 203
-    let cmdline_color_inf = 39
-    let cmdline_color_constant = 75
-    let cmdline_color_string = 79
-    let cmdline_color_stderr = 33
-    let cmdline_color_error = 15
-    let cmdline_color_warn = 1
-    let cmdline_color_index = 186
+  let cmdline_color_input = 247
+  let cmdline_color_normal = 39
+  let cmdline_color_number = 51
+  let cmdline_color_integer = 51
+  let cmdline_color_float = 51
+  let cmdline_color_complex = 51
+  let cmdline_color_negnum = 183
+  let cmdline_color_negfloat = 183
+  let cmdline_color_date = 43
+  let cmdline_color_true = 78
+  let cmdline_color_false = 203
+  let cmdline_color_inf = 39
+  let cmdline_color_constant = 75
+  let cmdline_color_string = 79
+  let cmdline_color_stderr = 33
+  let cmdline_color_error = 15
+  let cmdline_color_warn = 1
+  let cmdline_color_index = 186
 endif

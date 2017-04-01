@@ -8,7 +8,6 @@ export VISUAL=nvim
 # Enable vim bindings
 bindkey -v
 
-
 # Autocompletion settings
 setopt COMPLETE_ALIASES
 
@@ -25,6 +24,12 @@ if [[ $unamestr == 'Linux' ]]; then
   platform='linux'
 elif [[ $unamestr == 'Darwin' ]]; then
   platform='darwin'
+fi
+
+# Set additional environmental variables
+if [[ $unamestr == 'Darwin' ]]; then
+  # Add .local/bin to the path, Haskell's Stack package manager installs here
+  export PATH=$PATH:/Users/cbzehner/.local/bin/:/usr/local/bin
 fi
 
 ###########
