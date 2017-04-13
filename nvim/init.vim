@@ -26,6 +26,8 @@ Plug 'neovimhaskell/haskell-vim', { 'for': [ 'haskell', 'cabal' ] }
 Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'mpickering/hlint-refactor-vim', {'for': 'haskell'}
+"     Required for ghcmod-vim
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 "   Lisp
 Plug 'vim-scripts/paredit.vim', { 'for': [ 'scheme', 'lisp', 'commonlisp' ] }
 "   Hack/HHVM
@@ -33,6 +35,18 @@ Plug 'hhvm/vim-hack', { 'for': [ 'php' ] }
 "   Javascript
 Plug 'flowtype/vim-flow', { 'for': [ 'javascript' ] }
 call plug#end()
+
+" Now Perform The Installation Check:
+"==============================
+let everythingInstalled = !len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+if everythingInstalled || 2==confirm("Download and Install Plugins (Restart Afterwards To Take Effect)?", "&Yes\n&No", 1)
+  " Place all the rest of your `~/.vimrc` config HERE!
+else
+  autocmd VimEnter *
+    \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+    \|   PlugInstall --sync | echomsg "Restart Vim Now!" | let xx=confirm("Restart For Plugins to Take Effect.")
+    \| endif
+endif
 
 
 " |--- Settings ---|

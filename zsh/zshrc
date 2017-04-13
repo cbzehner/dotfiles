@@ -210,3 +210,22 @@ fi
 if [ -z ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
   source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
+
+############
+# FACEBOOK #
+############
+send(){
+    # usage: send target.txt
+    # places file at ~/temp on your devserver
+    # (make sure ~/temp already exists)
+    scp "$1" fb:~/temp
+}
+
+get(){
+    # usage: get target.txt
+    # assumes target.txt is at ~/temp/target.txt
+    # on your devserver
+    scp "fb:~/temp/$1" ~/Downloads
+}
+# For larger files, I prefer rsync -Pavz to scp because it compresses the file during transfer (-z), and shows a progress bar (-P)
+# - Walker Mills
