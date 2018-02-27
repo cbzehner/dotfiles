@@ -2,7 +2,7 @@
 # bashrc #
 ##########
 
-# Check out https://terminalsare.sexy/ for other ideas
+# Check out https://terminalsare.sexy/ and https://dotfiles.github.io/ for other ideas
 
 # Set neovim as the default editor
 export EDITOR=nvim
