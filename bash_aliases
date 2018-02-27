@@ -1,18 +1,23 @@
-###########
-# Aliases #
-###########
+################
+# bash_aliases #
+################
 
-# Always use neovim
+# A better commandline
+alias ls='exa '
+alias grep='rg '
+
+# Edit with neovim
 alias e='nvim '
-alias v='nvim '
-alias vi='nvim '
-alias vim='nvim '
+
+# Always use python3
+alias python='python3 '
 
 # Editing dotfiles
-alias be='nvim ~/.bashrc'
 alias ba='nvim ~/.bash_aliases'
+alias be='nvim ~/.bashrc'
 alias br='source ~/.bashrc'
 alias te='nvim ~/.tmux.conf'
+alias ve='nvim ~/.config/nvim/init.vim'
 
 # Mimic Vim exit
 alias :q='exit'
@@ -26,8 +31,3 @@ alias ax="chmod a+x"
 
 # Get your current public IP
 alias ip="curl icanhazip.com"
-
-# batch change extension (fix from Lri, again)
-chgext() {
-  for file in *.$1 ; do mv "$file" "${file%.$1}.$2" ; done
-}
