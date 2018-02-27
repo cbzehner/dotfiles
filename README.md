@@ -1,20 +1,15 @@
-# Dotfiles
+# dotfiles
+Carefully curated dumpster diving.
 
-## Development
+## Tools
 * Bash (bash)
-* Gitless (gl)
-* Mercurial (hg)
+* Mercurial (hg) / Git (git)
 * Mosh (mosh)
-* Neovim (nvim)[1]
-* Silver Searcher (ag)
+* Neovim (nvim) [1]
 * Terminal Multiplexer (tmux)
 
 ## Fonts
 Anonymous Pro (a really great font)
 
-## Life
-* Redshift (http://jonls.dk/redshift/)[2]
-
+## Footnotes
 [1] If using Neovim, don't forget to `pip3 --install neovim` as well to get Python support.
-
-[2] Troubleshooting problems with [Redshift from the ArchWiki](https://wiki.archlinux.org/index.php/Redshift)

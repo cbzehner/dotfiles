@@ -1,38 +1,31 @@
+" |-- init.vim for Neovim --|
+
+" TODO: Browse the past to discover the future
+"       https://github.com/cbzehner/dotfiles/blob/b74e54c/nvim/init.vim
+
+
+" |-- Plugged --|
 call plug#begin('~/.config/nvim/plugged')
 
-" General
-Plug 'neomake/neomake'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'ervandew/supertab'
+Plug 'w0rp/ale'          " Asynchronous Lint Engine
+" Plug 'ervandew/supertab'
+Plug 'mhinz/vim-signify' " Show version control info in vim-gutter
 
-" Pretty
-"   Vim Airline
+" Navigation
+Plug 'scrooloose/nerdtree' " <Ctrl-n>
+Plug 'ctrlpvim/ctrlp.vim'  " <Ctrl-P>
+
+" Layout
 Plug 'vim-airline/vim-airline'
-
-" Utilities
-"   Autoformatter for a variety of languages
-Plug 'Chiel92/vim-autoformat'
-"   Vim CmdLine
-Plug 'jalvesaq/vimcmdline'
-"   Pandoc / Markdown
-Plug 'vim-pandoc/vim-pandoc', { 'for': [ 'pandoc', 'markdown' ] }
-Plug 'vim-pandoc/vim-pandoc-syntax', { 'for': [ 'pandoc', 'markdown' ] }
+Plug 'godlygeek/tabular' " Align text for better whitespace art
 
 " Language Specific
-"   Elm
-Plug 'lambdatoast/elm.vim', { 'for': [ 'elm' ] }
-"   Haskell
+Plug 'rust-lang/rust.vim', { 'for': [ 'rust' ] }
+Plug 'racer-rust/vim-racer', { 'for': [ 'rust' ] }
+Plug 'parsonsmatt/intero-neovim', { 'for': [ 'haskell', 'cabal' ] }
 Plug 'neovimhaskell/haskell-vim', { 'for': [ 'haskell', 'cabal' ] }
-Plug 'eagletmt/ghcmod-vim', {'for': 'haskell'}
-Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
-Plug 'mpickering/hlint-refactor-vim', {'for': 'haskell'}
-"     Required for ghcmod-vim
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-"   Lisp
-Plug 'vim-scripts/paredit.vim', { 'for': [ 'scheme', 'lisp', 'commonlisp' ] }
-"   Hack/HHVM
+Plug 'alx741/vim-hindent', { 'for': [ 'haskell', 'cabal' ] }
 Plug 'hhvm/vim-hack', { 'for': [ 'php' ] }
-"   Javascript
 Plug 'flowtype/vim-flow', { 'for': [ 'javascript' ] }
 call plug#end()
 
@@ -64,10 +57,12 @@ set expandtab           " Insert spaces when TAB is pressed.
 set tabstop=2           " Render TABs using this many spaces.
 set shiftwidth=2        " Indentation amount for < and > commands.
 
+set undofile            " Maintain undo history between sessions
+set undodir=~/.config/nvim/undodir
+
 "set termguicolors      " Enable True Color (https://gist.github.com/XVilka/8346728)
 set noerrorbells        " No beeps.
 set modeline            " Enable modeline.
-set esckeys             " Cursor keys in insert mode.
 set linespace=0         " Set line-spacing to minimum.
 set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
 
@@ -76,7 +71,7 @@ set splitbelow          " Horizontal split below current.
 set splitright          " Vertical split to right of current.
 
 if !&scrolloff
-  set scrolloff=3       " Show next 3 lines while scrolling.
+  set scrolloff=5       " Show next 3 lines while scrolling.
 endif
 if !&sidescrolloff
   set sidescrolloff=5   " Show next 5 columns while side-scrolling.
@@ -125,29 +120,6 @@ nnoremap <leader>n :call NumberToggle()<cr>
 
 nnoremap Q @q   " Use Q to execute default register.
 
-
-" |--- Mappings ---|
-let mapleader = ","
-imap jk <Esc>
-
-" Remap the window commands to <Leader><key> combination
-map <leader>h :wincmd h<CR>
-map <leader>j :wincmd j<CR>
-map <leader>k :wincmd k<CR>
-map <leader>l :wincmd l<CR>
-
-" Toggle paste mode
-":nnoremap <Leader>p :set paste!<CR>
-
-" Highlight characters which exceed 80 columns in length
-match ErrorMsg '\%>80v.\+'
-
-" Highlight current cursor column
-:hi CursorColumn cterm=NONE ctermbg=237 ctermfg=white
-:set cursorcolumn
-:hi CursorLine cterm=NONE ctermbg=237 ctermfg=white
-:nnoremap <Leader>c :set cursorline!<CR>
-
 " Make the dot command work as expected in visual mode (via
 " https://www.reddit.com/r/vim/comments/3y2mgt/do_you_have_any_minor_customizationsmappings_that/cya0x04)
 vnoremap . :norm.<CR>
@@ -162,98 +134,121 @@ function! ExecuteMacroOverVisualRange()
 endfunction
 
 
-" |--- Plugins ---|
-" Neomake
-" Run NeoMake on read and write operations
-autocmd! BufReadPost,BufWritePost * Neomake
+" |--- Mappings ---|
+let mapleader = ","
+imap jk <Esc>
 
-" Disable inherited syntastic
-let g:syntastic_mode_map = {
-      \ "mode": "passive",
-      \ "active_filetypes": [],
-      \ "passive_filetypes": [] }
+" Remap the window commands to <Leader><key> combination
+map <leader>h :wincmd h<CR>
+map <leader>j :wincmd j<CR>
+map <leader>k :wincmd k<CR>
+map <leader>l :wincmd l<CR>
 
-let g:neomake_serialize = 1
-let g:neomake_serialize_abort_on_error = 1
+" Toggle paste mode
+:nnoremap <Leader>p :set paste!<CR>
 
-" Use Deoplete
-let g:deoplete#enable_at_startup = 1
+" Highlight characters which exceed 80 columns in length
+match ErrorMsg '\%>80v.\+'
 
-" Vim CmdLine
-let cmdline_vsplit = 1        " Split the window vertically
-let cmdline_esc_term = 1      " Remap <Esc> to :stopinsert in Neovim terminal
-let cmdline_in_buffer = 0     " Start the interpreter in a Neovim buffer
-let cmdline_term_height = 15  " Initial height of interpreter window or pane
-let cmdline_term_width = 80   " Initial width of interpreter window or pane
-let cmdline_tmp_dir = '/tmp'  " Temporary directory to save files
-let cmdline_outhl = 1         " Syntax highlight the output
+" Highlight current cursor column
+:hi CursorColumn cterm=NONE ctermbg=237 ctermfg=white
+:set cursorcolumn
+:hi CursorLine cterm=NONE ctermbg=237 ctermfg=white
+:nnoremap <Leader>c :set cursorline!<CR>
 
-" html5 syntax
-let g:html5_event_handler_attributes_complete = 0
-let g:html5_rdfa_attributes_complete = 0
-let g:html5_microdata_attributes_complete = 0
-let g:html5_aria_attributes_complete = 0
+map <C-n> :NERDTreeToggle<CR>
+"map <C-P> :CtrlP<CR>
 
-" javascript
-let g:jsx_ext_required = 0
 
-" flow
-let g:flow#autoclose = 1
-let g:flow#enable = 0
+" |-- Plugin Specific --|
 
-" go to definition
-noremap gd :<C-U>call <SID>go_to_definition()<CR>
-function! s:go_to_definition()
-  if &filetype =~ 'javascript'
-    FlowJumpToDef
-  elseif &filetype =~ 'php'
-    HackGotoDef
-  else
-    normal! gd
+" From https://blog.jez.io/haskell-development-with-neovim
+" ----- neovimhaskell/haskell-vim -----
+
+" Align 'then' two spaces after 'if'
+let g:haskell_indent_if = 3
+" Indent 'where' block two spaces under previous body
+let g:haskell_indent_before_where = 2
+" Allow a second case indent style (see haskell-vim README)
+let g:haskell_indent_case_alternative = 1
+" Only next under 'let' if there's an equals sign
+let g:haskell_indent_let_no_in = 0
+
+" ----- hindent & stylish-haskell -----
+
+" Indenting on save is too aggressive for me
+let g:hindent_on_save = 1
+
+" Helper function, called below with mappings
+function! HaskellFormat(which) abort
+  if a:which ==# 'hindent' || a:which ==# 'both'
+    :Hindent
+  endif
+  if a:which ==# 'stylish' || a:which ==# 'both'
+    silent! exe 'undojoin'
+    silent! exe 'keepjumps %!stylish-haskell'
   endif
 endfunction
 
-" get type info
-noremap K :<C-U>call <SID>get_help()<CR>
-function! s:get_help()
-  if &filetype =~ 'javascript'
-    FlowType
-  elseif &filetype =~ 'php'
-    HackType
-  else
-    normal! K
-  endif
-endfunction
+" Key bindings
+augroup haskellStylish
+  au!
+  " Just hindent
+  au FileType haskell nnoremap <leader>hi :Hindent<CR>
+  " Just stylish-haskell
+  au FileType haskell nnoremap <leader>hs :call HaskellFormat('stylish')<CR>
+  " First hindent, then stylish-haskell
+  au FileType haskell nnoremap <leader>hf :call HaskellFormat('both')<CR>
+augroup END
 
-" merge conflict motion, borrowed from tpope/vim-unimpaired
-noremap [n :<C-U>call <SID>next_conflict(1)<CR>
-noremap ]n :<C-U>call <SID>next_conflict(0)<CR>
-function! s:next_conflict(reverse)
-  call search('^\(@@ .* @@\|[<=>|]\{7}[<=>|]\@!\)', a:reverse ? 'bW' : 'W')
-endfunction
+" ----- rust-lang/rust.vim -----
+let g:rustfmt_autosave = 0
+
+" ----- w0rp/ale -----
+
+" Get stack support for 'stack-ghc-mod'
+let g:ale_fixers = {
+\   'haskell': [
+\     'hlint'
+\   ]
+\}
+
+" ----- mhinz/vim-signify -----
+
+" Only enable for Git and Mercurial
+let g:signify_vcs_list = [ 'git', 'hg' ]
+
+" ----- parsonsmatt/intero-neovim -----
+
+" Prefer starting Intero manually (faster startup times)
+let g:intero_start_immediately = 0
+" Use ALE (works even when not using Intero)
+let g:intero_use_neomake = 0
+
+augroup interoMaps
+  au!
+
+  au FileType haskell nnoremap <silent> <leader>io :InteroOpen<CR>
+  au FileType haskell nnoremap <silent> <leader>iov :InteroOpen<CR><C-W>H
+  au FileType haskell nnoremap <silent> <leader>ih :InteroHide<CR>
+  au FileType haskell nnoremap <silent> <leader>is :InteroStart<CR>
+  au FileType haskell nnoremap <silent> <leader>ik :InteroKill<CR>
+
+  au FileType haskell nnoremap <silent> <leader>wr :w \| :InteroReload<CR>
+  au FileType haskell nnoremap <silent> <leader>il :InteroLoadCurrentModule<CR>
+  au FileType haskell nnoremap <silent> <leader>if :InteroLoadCurrentFile<CR>
+
+  au FileType haskell map <leader>t <Plug>InteroGenericType
+  au FileType haskell map <leader>T <Plug>InteroType
+  au FileType haskell nnoremap <silent> <leader>it :InteroTypeInsert<CR>
+
+  au FileType haskell nnoremap <silent> <leader>jd :InteroGoToDef<CR>
+  au FileType haskell nnoremap <silent> <leader>iu :InteroUses<CR>
+  au FileType haskell nnoremap <leader>ist :InteroSetTargets<SPACE>
+augroup END
 
 
-" |--- Language Specific ---|
-" Vala
-"   Set detection of Vala files (https://wiki.gnome.org/Projects/Vala/Vim)
-autocmd BufRead *.vala,*.vapi set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
-autocmd BufRead,BufNewFile *.vala,*.vapi setfiletype vala
-"   Set vala files to default to 4 spaces
-autocmd FileType vala setlocal shiftwidth=2 softtabstop=4
-
-" Haskell
-"   Hook into ghc-mod's code competion capabilities
-map <silent> tw :GhcModTypeInsert<CR>
-map <silent> ts :GhcModSplitFunCase<CR>
-map <silent> tq :GhcModType<CR>
-map <silent> te :GhcModTypeClear<CR>
-"   Use neco-ghc for completion
-let g:haskellmode_completion_ghc = 1
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
-
-" |--- Misc. ---|
-" fb specifics
+" |-- FB Specific --|
 let g:hack#enable = 0
 let g:fb_default_opts = 0
 try
@@ -261,25 +256,3 @@ try
   source /home/engshare/admin/scripts/vim/biggrep.vim
 catch
 endtry
-
-"   Specify syntax highlighting colors
-if &t_Co == 256
-  let cmdline_color_input = 247
-  let cmdline_color_normal = 39
-  let cmdline_color_number = 51
-  let cmdline_color_integer = 51
-  let cmdline_color_float = 51
-  let cmdline_color_complex = 51
-  let cmdline_color_negnum = 183
-  let cmdline_color_negfloat = 183
-  let cmdline_color_date = 43
-  let cmdline_color_true = 78
-  let cmdline_color_false = 203
-  let cmdline_color_inf = 39
-  let cmdline_color_constant = 75
-  let cmdline_color_string = 79
-  let cmdline_color_stderr = 33
-  let cmdline_color_error = 15
-  let cmdline_color_warn = 1
-  let cmdline_color_index = 186
-endif
