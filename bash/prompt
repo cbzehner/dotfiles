@@ -27,8 +27,7 @@ exitstatus()
     if [[ $? == 0 ]]; then
         echo "${GREEN}SUCCESS${RESET}"
     else
-        echo "${RED}FAIL: ${RESET}"
-        #echo "${RED}FAIL: ${$?}${RESET}"
+        echo "${RED}FAIL: ${$?}${RESET}"
     fi
 }
 

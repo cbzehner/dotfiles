@@ -30,13 +30,13 @@ CDPATH='.:~:~/Projects:~/.dotfiles'
 export XDG_CONFIG_HOME="$HOME/.config"
 
 # Alias definitions.
-if [ -f ~/.config/dotfiles/bash/aliases ]; then
-    . ~/.config/dotfiles/bash/aliases
+if [ -f "$XDG_CONFIG_HOME/dotfiles/bash/aliases" ]; then
+    . "$XDG_CONFIG_HOME/dotfiles/bash/aliases"
 fi
 
 # Prompt definitions.
-if [ -f ~/.config/dotfiles/bash/prompt ]; then
-    . ~/.config/dotfiles/bash/prompt
+if [ -f "$XDG_CONFIG_HOME/dotfiles/bash/prompt" ]; then
+    . "$XDG_CONFIG_HOME/dotfiles/bash/prompt"
 fi
 
 ################
@@ -48,12 +48,12 @@ if [ -f ~/.config/exercism/exercism_completion.bash ]; then
 fi
 
 # Autocomplete for Bash (https://wiki.archlinux.org/index.php/Bash#Tab_completion)
-if [-f /usr/share/bash-completion/bash_completion ]; then
+if [ -f /usr/share/bash-completion/bash_completion ]; then
   . /usr/share/bash-completion/bash_completion
 fi
 
 # Same as above, but at the Homebrew installation directory.
-if [-f /usr/local/etc/bash_completion ]; then
+if [ -f /usr/local/etc/bash_completion ]; then
   . /usr/local/etc/bash_completion
 fi
 

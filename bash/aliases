@@ -31,3 +31,8 @@ alias ax="chmod a+x"
 
 # Get your current public IP
 alias ip="curl icanhazip.com"
+
+# Get to common directories faster
+alias dotfiles="cd ~/.config/dotfiles"
+alias Projects="cd ~/Projects"
+alias projects="cd ~/Projects"

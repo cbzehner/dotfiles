@@ -6,3 +6,6 @@
 if [ -f ~/.bashrc ]; then
     . ~/.bashrc
 fi
+
+# Prevent FB from adding Android SDK environment settings here.
+#CHEF.NO.SOURCE
