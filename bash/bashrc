@@ -30,13 +30,13 @@ CDPATH='.:~:~/Projects:~/.dotfiles'
 export XDG_CONFIG_HOME="$HOME/.config"
 
 # Alias definitions.
-if [ -f ~/.config/dotfiles/bash_aliases ]; then
-    . ~/.config/dotfiles/bash_aliases
+if [ -f ~/.config/dotfiles/bash/aliases ]; then
+    . ~/.config/dotfiles/bash/aliases
 fi
 
 # Prompt definitions.
-if [ -f ~/.config/dotfiles/bash_prompt ]; then
-    . ~/.config/dotfiles/bash_prompt
+if [ -f ~/.config/dotfiles/bash/prompt ]; then
+    . ~/.config/dotfiles/bash/prompt
 fi
 
 ################
