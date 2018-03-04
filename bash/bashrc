@@ -68,7 +68,9 @@ export PROMPT_COMMAND='history -a' # Save commands immediately instead of at the
 export HISTIGNORE='ls:bg:history' # Ignore specific commands
 export HISTCONTROL=erasedups
 export HISTCONTROL=ignoreboth # Ignore spaces and duplicates
-# PROMPT_COMMAND='history -a' # Save commands immediately instead of at the end of session
+# Append to the history file, clear the current history, and then read it back
+# See https://www.digitalocean.com/community/tutorials/how-to-use-bash-history-commands-and-expansions-on-a-linux-vps
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # Bind the up and down arrow keys to search through Bash history
 bind '"\e[A": history-search-backward'
