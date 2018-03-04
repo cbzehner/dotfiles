@@ -2,6 +2,7 @@
 
 " TODO: Browse the past to discover the future
 "       https://github.com/cbzehner/dotfiles/blob/b74e54c/nvim/init.vim
+"       https://github.com/jordwalke/VimBox
 
 
 " |-- Plugged --|
@@ -10,6 +11,14 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'w0rp/ale'          " Asynchronous Lint Engine
 " Plug 'ervandew/supertab'
 Plug 'mhinz/vim-signify' " Show version control info in vim-gutter
+
+ " Language Server Protocol support
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+Plug 'roxma/nvim-completion-manager'  " Autocompletion framework
 
 " Navigation
 Plug 'scrooloose/nerdtree' " <Ctrl-n>
@@ -102,8 +111,24 @@ if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 endif
 
+" Imagine how much time and strain this binding will save you over the next thirty years of vim usage.
+nnoremap ; :
+nnoremap ;; ;
+
+" Sort imports for JS/CSS
+" nnoremap <silent> <leader>i vip:'<, '>sort /.\{-}\(require\\|from\)/ i<CR>
+
 " Search and Replace
-nmap <Leader>s :%s//g<Left><Left>
+" nmap <Leader>s :%s//g<Left><Left>
+
+" Run tests on the current file 
+augroup testCurrentFile
+  au!
+  au FileType php           nnoremap <C-t> :w !t %<CR>
+  au FileType javascript    nnoremap <C-t> :w !jest %<CR>
+  au FileType rust          nnoremap <C-t> :w !cargo test<CR>
+  au FileType haskell       nnoremap <C-t> :w !stack test<CR>
+augroup END
 
 " Relative numbering
 function! NumberToggle()
@@ -162,6 +187,24 @@ map <C-n> :NERDTreeToggle<CR>
 
 " |-- Plugin Specific --|
 
+" ----- autozimu/LanguageClient-neovim ----- 
+" a basic set up for LanguageClient-Neovim
+" << LSP >> {{{
+let g:LanguageClient_autoStart = 1
+nnoremap <leader>lcs :LanguageClientStart<CR>
+
+let g:LanguageClient_serverCommands = {
+    \ 'python': ['pyls'],
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'go': ['go-langserver'] }
+
+noremap <silent> H :call LanguageClient_textDocument_hover()<CR>
+noremap <silent> Z :call LanguageClient_textDocument_definition()<CR>
+noremap <silent> R :call LanguageClient_textDocument_rename()<CR>
+noremap <silent> S :call LanugageClient_textDocument_documentSymbol()<CR>
+" }}}
+
 " From https://blog.jez.io/haskell-development-with-neovim
 " ----- neovimhaskell/haskell-vim -----
 
@@ -202,7 +245,7 @@ augroup haskellStylish
 augroup END
 
 " ----- rust-lang/rust.vim -----
-let g:rustfmt_autosave = 0
+let g:rustfmt_autosave = 1
 
 " ----- w0rp/ale -----
 
