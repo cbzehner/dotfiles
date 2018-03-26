@@ -19,6 +19,12 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ }
 
 Plug 'roxma/nvim-completion-manager'  " Autocompletion framework
+Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'} " Javascript Autocompletion
+Plug 'roxma/ncm-flow' " Javascript Flow Autocompletion
+Plug 'calebeby/ncm-css' " CSS Autocompletion
+
+" Seamlessly navigate between vim and tmux splits
+Plug 'christoomey/vim-tmux-navigator'
 
 " Navigation
 Plug 'scrooloose/nerdtree' " <Ctrl-n>
@@ -35,7 +41,9 @@ Plug 'parsonsmatt/intero-neovim', { 'for': [ 'haskell', 'cabal' ] }
 Plug 'neovimhaskell/haskell-vim', { 'for': [ 'haskell', 'cabal' ] }
 Plug 'alx741/vim-hindent', { 'for': [ 'haskell', 'cabal' ] }
 Plug 'hhvm/vim-hack', { 'for': [ 'php' ] }
-Plug 'flowtype/vim-flow', { 'for': [ 'javascript' ] }
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
 call plug#end()
 
 " Now Perform The Installation Check:
@@ -74,6 +82,12 @@ set noerrorbells        " No beeps.
 set modeline            " Enable modeline.
 set linespace=0         " Set line-spacing to minimum.
 set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
+
+" Easier split navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " More natural splits
 set splitbelow          " Horizontal split below current.
@@ -253,6 +267,9 @@ let g:rustfmt_autosave = 1
 let g:ale_fixers = {
 \   'haskell': [
 \     'hlint'
+\   ],
+\   'javascript': [
+\     'eslint'
 \   ]
 \}
 
@@ -290,6 +307,9 @@ augroup interoMaps
   au FileType haskell nnoremap <leader>ist :InteroSetTargets<SPACE>
 augroup END
 
+" ---- christoomey/vim-tmux-navigator ----
+" https://robots.thoughtbot.com/seamlessly-navigate-vim-and-tmux-splits
+" See ~/.tmux.conf
 
 " |-- FB Specific --|
 let g:hack#enable = 0
