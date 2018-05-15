@@ -73,7 +73,7 @@ set textwidth=0         " Hard-wrap long lines as you type them.
 set expandtab           " Insert spaces when TAB is pressed.
 set tabstop=2           " Render TABs using this many spaces.
 set shiftwidth=2        " Indentation amount for < and > commands.
-
+set autochdir           " Updates the working directory to the directory of the open file.
 set undofile            " Maintain undo history between sessions
 set undodir=~/.config/nvim/undodir
 
