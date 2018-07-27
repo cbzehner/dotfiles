@@ -310,12 +310,3 @@ augroup END
 " ---- christoomey/vim-tmux-navigator ----
 " https://robots.thoughtbot.com/seamlessly-navigate-vim-and-tmux-splits
 " See ~/.tmux.conf
-
-" |-- FB Specific --|
-let g:hack#enable = 0
-let g:fb_default_opts = 0
-try
-  source $ADMIN_SCRIPTS/master.vimrc
-  source /home/engshare/admin/scripts/vim/biggrep.vim
-catch
-endtry
