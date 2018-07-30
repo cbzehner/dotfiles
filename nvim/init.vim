@@ -11,6 +11,8 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'w0rp/ale'          " Asynchronous Lint Engine
 " Plug 'ervandew/supertab'
 Plug 'mhinz/vim-signify' " Show version control info in vim-gutter
+" Use ripgrep in Vim with :Rg
+Plug 'jremmen/vim-ripgrep'
 
  " Language Server Protocol support
 Plug 'autozimu/LanguageClient-neovim', {
@@ -18,7 +20,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 
-Plug 'roxma/nvim-completion-manager'  " Autocompletion framework
+"Plug 'roxma/nvim-completion-manager'  " Autocompletion framework
 Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'} " Javascript Autocompletion
 Plug 'roxma/ncm-flow' " Javascript Flow Autocompletion
 Plug 'calebeby/ncm-css' " CSS Autocompletion
