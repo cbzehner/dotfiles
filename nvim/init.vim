@@ -8,11 +8,9 @@
 " |-- Plugged --|
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'w0rp/ale'          " Asynchronous Lint Engine
-" Plug 'ervandew/supertab'
-Plug 'mhinz/vim-signify' " Show version control info in vim-gutter
-" Use ripgrep in Vim with :Rg
-Plug 'jremmen/vim-ripgrep'
+Plug 'w0rp/ale'            " Asynchronous Lint Engine
+Plug 'ervandew/supertab'
+Plug 'mhinz/vim-signify'   " Show version control info in vim-gutter
 
  " Language Server Protocol support
 Plug 'autozimu/LanguageClient-neovim', {
@@ -25,12 +23,14 @@ Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'} " Javascript Autocompletion
 Plug 'roxma/ncm-flow' " Javascript Flow Autocompletion
 Plug 'calebeby/ncm-css' " CSS Autocompletion
 
-" Seamlessly navigate between vim and tmux splits
-Plug 'christoomey/vim-tmux-navigator'
+
+Plug 'christoomey/vim-tmux-navigator' " Seamlessly navigate between vim and tmux splits
+Plug 'pbrisbin/vim-mkdir' " Create non-existent directories when saving
 
 " Navigation
 Plug 'scrooloose/nerdtree' " <Ctrl-n>
 Plug 'ctrlpvim/ctrlp.vim'  " <Ctrl-P>
+Plug 'jremmen/vim-ripgrep' " Use ripgrep in Vim with :Rg
 
 " Layout
 Plug 'vim-airline/vim-airline'
@@ -46,6 +46,7 @@ Plug 'hhvm/vim-hack', { 'for': [ 'php' ] }
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
+" Plug 'ngmy/vim-rubocop', { 'for': [ 'ruby' ] }
 call plug#end()
 
 " Now Perform The Installation Check:
@@ -78,6 +79,7 @@ set shiftwidth=2        " Indentation amount for < and > commands.
 set autochdir           " Updates the working directory to the directory of the open file.
 set undofile            " Maintain undo history between sessions
 set undodir=~/.config/nvim/undodir
+set foldmethod=indent   " Lines with equal indent form a fold.
 
 "set termguicolors      " Enable True Color (https://gist.github.com/XVilka/8346728)
 set noerrorbells        " No beeps.
@@ -122,13 +124,17 @@ set incsearch           " Incremental search.
 set gdefault            " Use 'g' flag by default with :s/foo/bar/.
 set magic               " Use 'magic' patterns (extended regular expressions).
 
+" Ignore the following files globally inside Vim
+" Credit: https://elliotekj.com/2016/11/22/setup-ctrlp-to-use-ripgrep-in-vim/
+set wildignore+=*/.git/*,*/tmp/*,*.swp
+
 " Use <C-L> to clear the highlighting of :set hlsearch.
 if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 endif
 
 " Imagine how much time and strain this binding will save you over the next thirty years of vim usage.
-nnoremap ; :
+" nnoremap ; :
 nnoremap ;; ;
 
 " Sort imports for JS/CSS
@@ -188,8 +194,8 @@ map <leader>l :wincmd l<CR>
 " Toggle paste mode
 :nnoremap <Leader>p :set paste!<CR>
 
-" Highlight characters which exceed 80 columns in length
-match ErrorMsg '\%>80v.\+'
+" Highlight characters which exceed 100 columns in length
+match ErrorMsg '\%>100v.\+'
 
 " Highlight current cursor column
 :hi CursorColumn cterm=NONE ctermbg=237 ctermfg=white
@@ -220,6 +226,16 @@ noremap <silent> Z :call LanguageClient_textDocument_definition()<CR>
 noremap <silent> R :call LanguageClient_textDocument_rename()<CR>
 noremap <silent> S :call LanugageClient_textDocument_documentSymbol()<CR>
 " }}}
+
+" ----- ctrlpvim/ctrlp.vim -----
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp' " Cache results
+if executable('rg') " Use rg instead of vim built-in.
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+else
+  let g:ctrlp_clear_cache_on_exit = 0
+endif
 
 " From https://blog.jez.io/haskell-development-with-neovim
 " ----- neovimhaskell/haskell-vim -----
