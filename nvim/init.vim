@@ -46,6 +46,10 @@ Plug 'hhvm/vim-hack', { 'for': [ 'php' ] }
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
+Plug 'vim-ruby/vim-ruby', { 'for': [ 'ruby' ] }
+Plug 'tpope/vim-rails', { 'for': [ 'ruby' ] }
+Plug 'tpope/vim-bundler', { 'for': [ 'ruby' ] }
+Plug 'tpope/vim-endwise', { 'for': [ 'ruby' ] }
 " Plug 'ngmy/vim-rubocop', { 'for': [ 'ruby' ] }
 call plug#end()
 
