@@ -18,11 +18,21 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 
-"Plug 'roxma/nvim-completion-manager'  " Autocompletion framework
-Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'} " Javascript Autocompletion
-Plug 'roxma/ncm-flow' " Javascript Flow Autocompletion
-Plug 'calebeby/ncm-css' " CSS Autocompletion
+Plug 'ncm2/ncm2' " Autocompletion framework
+Plug 'roxma/nvim-yarp' " Required for the above
 
+" NOTE: you need to install completion sources to get completions. Check
+" our wiki page for a list of sources: https://github.com/ncm2/ncm2/wiki
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-tmux'
+Plug 'ncm2/ncm2-path'
+" Plug 'ncm2/nvim-typescript', {'do': './install.sh', 'for': [ 'typescript', 'typescriptreact' ]} " Typescript Autocompletion
+Plug 'ncm2/ncm2-tern',  {'do': 'npm install'} " Javascript Autocompletion
+Plug 'ncm2/ncm2-cssomni' " CSS Autocompletion
+Plug 'ncm2/ncm2-racer' " Rust Autocompletion
+Plug 'ncm2/ncm2-jedi'  " Python Autocompletion
+Plug 'ncm2/ncm2-html-subscope' " Detect HTML Subscoping
+Plug 'ncm2/ncm2-markdown-subscope' " Detect code block subscoping in Markdown
 
 Plug 'christoomey/vim-tmux-navigator' " Seamlessly navigate between vim and tmux splits
 Plug 'pbrisbin/vim-mkdir' " Create non-existent directories when saving
@@ -45,11 +55,12 @@ Plug 'alx741/vim-hindent', { 'for': [ 'haskell', 'cabal' ] }
 Plug 'hhvm/vim-hack', { 'for': [ 'php' ] }
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
+  \ 'for': ['javascript', 'typescript', 'typescriptreact', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
 Plug 'vim-ruby/vim-ruby', { 'for': [ 'ruby' ] }
 Plug 'tpope/vim-rails', { 'for': [ 'ruby' ] }
 Plug 'tpope/vim-bundler', { 'for': [ 'ruby' ] }
 Plug 'tpope/vim-endwise', { 'for': [ 'ruby' ] }
+Plug 'HerringtonDarkholme/yats.vim', { 'for': [ 'typescript', 'typescriptreact' ]}
 " Plug 'ngmy/vim-rubocop', { 'for': [ 'ruby' ] }
 call plug#end()
 
@@ -230,6 +241,12 @@ noremap <silent> Z :call LanguageClient_textDocument_definition()<CR>
 noremap <silent> R :call LanguageClient_textDocument_rename()<CR>
 noremap <silent> S :call LanugageClient_textDocument_documentSymbol()<CR>
 " }}}
+
+" ---- ncm2/ncm2 ----
+autocmd BufEnter * call ncm2#enable_for_buffer()
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+
 
 " ----- ctrlpvim/ctrlp.vim -----
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp' " Cache results
