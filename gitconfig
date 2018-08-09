@@ -1,19 +1,35 @@
 # This is Git's per-user configuration file.
-[core]
-	editor = nvim
 [user]
 	name = Chris Zehner
 	email = cbzehner@gmail.com
-[push]
-	default = current # Push the current branch to the upstream by default
 [alias]
-	br = branch
-	co = commit
-	ch = checkout
-	st = status
 	amend = commit --amend
+	br = branch
+	ch = checkout
+	co = commit
 	last = log -1 HEAD
 	shelve = stash # Alias for switching between Hg and Git
+	st = status
 	unshelve = stash pop # Alias for switching between Hg and Git
 	unstage = reset HEAD --
-	catchup = !"sh -c 'git checkout master && git pull origin master'"
+	up = !"sh -c 'git checkout master && git pull origin master'"
+  aa = add --all
+  ap = add --patch
+  pf = push --force-with-lease
+[core]
+	editor = nvim
+  excludesfile = ~/.gitignore
+[commit]
+  template = ~/.gitmessage
+[diff]
+  colorMoved = zebra
+[fetch]
+  prune = true
+[merge]
+  ff = only
+[push]
+	default = current # Push the current branch to the upstream by default
+[rebase]
+  autosquash = true
+[include]
+  path = ~/.gitconfig.local
