@@ -16,6 +16,7 @@
   aa = add --all
   ap = add --patch
   pf = push --force-with-lease
+  delete-feature-branches = !"sh -c 'git up && git branch | rg -v master | xargs git branch -D'"
 [core]
 	editor = nvim
   excludesfile = ~/.gitignore
