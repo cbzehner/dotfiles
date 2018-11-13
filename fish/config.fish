@@ -10,6 +10,8 @@ alias rants="nvim +'normal Go' +'r!date' ~/rants.txt"  # Open up a `rants.txt` f
 alias raves="nvim +'normal Go' +'r!date' ~/raves.txt"  # Open up a `raves.txt` file for other feedback
 alias e="nvim"  # Alias Neovim to `e` for Edit
 alias railsapi="open https://api.rubyonrails.org/"  # Shortcut to access the Rails API documentation
+alias untar="tar -xvzf" # Always forget this.
+alias audiod="ps aux | grep 'coreaudio[d]' | awk '{print $2}' | xargs sudo kill"
 
 # Allow fish commandline to be controlled via vi-style keybindings.
 fish_vi_key_bindings
