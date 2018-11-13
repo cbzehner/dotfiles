@@ -1,24 +1,24 @@
 # This is Git's per-user configuration file.
 [user]
-	name = Chris Zehner
-	email = cbzehner@gmail.com
+  name = Chris Zehner
+  email = cbzehner@gmail.com
 [alias]
-	amend = commit --amend
-	br = branch
-	ch = checkout
-	co = commit
-	last = log -1 HEAD
-	shelve = stash # Alias for switching between Hg and Git
-	st = status
-	unshelve = stash pop # Alias for switching between Hg and Git
-	unstage = reset HEAD --
-	up = !"sh -c 'git checkout master && git pull origin master'"
+  amend = commit --amend
+  br = branch
+  ch = checkout
+  co = commit
+  last = log -1 HEAD
+  shelve = stash # Alias for switching between Hg and Git
+  st = status
+  unshelve = stash pop # Alias for switching between Hg and Git
+  unstage = reset HEAD --
+  up = !"sh -c 'git checkout master && git pull origin master'"
   aa = add --all
   ap = add --patch
   pf = push --force-with-lease
   delete-feature-branches = !"sh -c 'git up && git branch | rg -v master | xargs git branch -D'"
 [core]
-	editor = nvim
+  editor = nvim
   excludesfile = ~/.gitignore
 [commit]
   template = ~/.gitmessage
@@ -29,10 +29,10 @@
 [merge]
   ff = only
 [push]
-	default = current # Push the current branch to the upstream by default
+  default = current # Push the current branch to the upstream by default
 [rebase]
   autosquash = true
 [include]
   path = ~/.gitconfig.local
 [url "git@github.com:"]
-	insteadOf = https://github.com/
+  insteadOf = https://github.com/
