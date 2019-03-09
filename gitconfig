@@ -3,20 +3,22 @@
   name = Chris Zehner
   email = cbzehner@gmail.com
 [alias]
+  aa = add --all
   amend = commit --amend
+  ap = add --patch
   br = branch
   ch = checkout
   co = commit
+  delete-feature-branches = !"sh -c 'git up && git branch | rg -v master | xargs git branch -D'"
+  go = !"sh -c 'git up && git rails'"
   last = log -1 HEAD
+  pf = push --force-with-lease
+  rails = !"sh -c 'yarn install && rails db:migrate && git add . && git stash && bundle install'"
   shelve = stash # Alias for switching between Hg and Git
   st = status
   unshelve = stash pop # Alias for switching between Hg and Git
   unstage = reset HEAD --
   up = !"sh -c 'git checkout master && git pull origin master'"
-  aa = add --all
-  ap = add --patch
-  pf = push --force-with-lease
-  delete-feature-branches = !"sh -c 'git up && git branch | rg -v master | xargs git branch -D'"
 [core]
   editor = nvim
   excludesfile = ~/.gitignore
@@ -26,8 +28,6 @@
   colorMoved = zebra
 [fetch]
   prune = true
-[merge]
-  ff = only
 [push]
   default = current # Push the current branch to the upstream by default
 [rebase]
