@@ -4,7 +4,7 @@
 # Preferred: exa
 #
 function list --description 'List contents of a directory'
-  if which exa
+  if type -q exa
     command exa $argv
   else
     command ls $argv
