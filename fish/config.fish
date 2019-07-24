@@ -5,33 +5,37 @@
     # tmux attach; or tmux new
 # end
 
-# Set the $XDG_CONFIG_HOME
-set XDG_CONFIG_HOME $HOME/.config
+# Comply with the XDG Base Directory Specification, even when the base system does not
+set -gx XDG_CACHE_HOME "$HOME/.cache"
+set -gx XDG_CONFIG_HOME "$HOME/.config"
+set -gx XDG_DATA_HOME "$HOME/.local/share"
 
+# Change the current working directory to these directories with only the name
+# e.g. `cd Projects`
+set -gx CDPATH . ~ (test -e ~/Projects; and echo ~/Projects) (test -e ~/Projects/dotfiles; and echo ~/Projects/dotfiles)
 
-# TODO: Set the default pager to bat
 # Set the default editor to Neovim
-set EDITOR nvim
+set -gx EDITOR "nvim"
 
-alias vi="nvim"
-alias vim="nvim"
-alias edit="nvim"
-alias e="nvim"
-alias untar="tar -xvzf" # I always forget this command.
-
-# Allow fish commandline to be controlled via vi-style keybindings.
-fish_vi_key_bindings
-# TODO: Investigate more modern ways of doing this
-function rebind_esc_to_jk 
-  fish_vi_key_bindings
-  bind -M insert -m default jk backward-char force-repaint
+# Prompt
+if test -e "$XDG_CONFIG_HOME/fish/prompt.fish"
+  source "$XDG_CONFIG_HOME/fish/prompt.fish"
 end
-set -g fish_key_bindings rebind_esc_to_jk
+
+# Vim Emulation
+if test -e "$XDG_CONFIG_HOME/fish/vim.fish"
+  source "$XDG_CONFIG_HOME/fish/vim.fish"
+end
+
+# Aliases
+if test -e "$XDG_CONFIG_HOME/fish/alias.fish"
+  source "$XDG_CONFIG_HOME/fish/alias.fish"
+end
 
 # Source additional settings based on OS 
 switch (uname --operating-system)
-case GNU/Linux
-  source $XDG_CONFIG_HOME/fish/linux.fish
-case Darwin
-  source $XDG_CONFIG_HOME/fish/darwin.fish
+case "GNU/Linux"
+  source "$XDG_CONFIG_HOME/fish/linux.fish"
+case "Darwin"
+  source "$XDG_CONFIG_HOME/fish/darwin.fish"
 end
