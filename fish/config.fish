@@ -1,3 +1,5 @@
+# config.fish: Fish Configuration Entry Point
+
 # TODO: Update this to attach only
 # Always start Tmux
 # if status is-interactive
@@ -30,6 +32,11 @@ end
 # Aliases
 if test -e "$XDG_CONFIG_HOME/fish/alias.fish"
   source "$XDG_CONFIG_HOME/fish/alias.fish"
+end
+
+# Environment
+if test -e "$XDG_CONFIG_HOME/fish/environment.fish"
+  source "$XDG_CONFIG_HOME/fish/environment.fish"
 end
 
 # Source additional settings based on OS 

@@ -23,7 +23,7 @@
   editor = nvim
   excludesfile = ~/.gitignore
 [commit]
-  template = ~/.gitmessage
+  # template = ~/.gitmessage
 [diff]
   colorMoved = zebra
 [fetch]
