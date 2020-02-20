@@ -8,4 +8,7 @@ set NPM_CONFIG_PREFIX ~/.npm-global
   set PATH '/snap/bin'                 $PATH # Include snap applications
   set PATH '/home/cbzehner/bin'        $PATH # Include ~/bin in path
   set PATH '/home/cbzehner/.local/bin' $PATH # Include packages installed with pip3 --user
+  set PATH '.git/safe/../../bin'       $PATH # Include trusted repo binaries (see https://thoughtbot.com/blog/git-safe)
 
+# Alias for controlling postgres via systemd
+alias postgres="sudo /etc/init.d/postgresql"

@@ -46,3 +46,13 @@ case "GNU/Linux"
 case "Darwin"
   source "$XDG_CONFIG_HOME/fish/darwin.fish"
 end
+
+# Programming language specific settings
+if test -e "$XDG_CONFIG_HOME/fish/ruby.fish"
+  source "$XDG_CONFIG_HOME/fish/ruby.fish"
+end
+
+
+
+# Enable the Starship command prompt
+starship init fish | source
