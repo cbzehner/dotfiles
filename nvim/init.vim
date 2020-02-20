@@ -11,16 +11,14 @@
   " Utils
   Plug 'christoomey/vim-tmux-navigator' " Seamlessly navigate between vim and tmux splits
   Plug 'pbrisbin/vim-mkdir'             " Create non-existent directories when saving
-  "Plug 'tpope/vim-fugitive'             " A Git wrapper so awesome, it should be illegal
+  Plug 'tpope/vim-fugitive'             " A Git wrapper so awesome, it should be illegal
   Plug 'tpope/vim-surround'             " All about \"surroundings\": parentheses, brackets, quotes, XML tags, and more.
   Plug 'editorconfig/editorconfig-vim'  " Add support for .editorconfig files
 
 
   " Navigation
-  "Plug 'ctrlpvim/ctrlp.vim'  " <Ctrl-P>
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Install fzf using Vim-Plug
   Plug 'junegunn/fzf.vim' " Use fzf in Vim with :Files
-  Plug 'jremmen/vim-ripgrep' " Use ripgrep in Vim with :Rg
 
   " Language Support
   "Plug 'pangloss/vim-javascript' " Javascript syntax highlighting and indentation

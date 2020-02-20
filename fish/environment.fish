@@ -1,5 +1,5 @@
 # environment.fish
 
-# Fzf should use ripgrep by default
-# Source: https://freshman.tech/vim-javascript/#fuzzy-file-finder
-set -gx FZF_DEFAULT_COMMAND  'rg --files-with-matches --follow --hidden'
+# Fzf should use fd by default
+set -gx FZF_DEFAULT_COMMAND "fd --type f --exclude '.git'"
+set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
