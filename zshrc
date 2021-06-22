@@ -25,8 +25,8 @@ alias kc="kubectl"
 alias untar="tar -zxvf"
 
 # Load porcelain, if present
-if [[ -f $XDG_CONFIG_HOME/.porcelain ]]; then
-  source $XDG_CONFIG_HOME/.porcelain
+if [[ -f $HOME/.porcelain ]]; then
+  source $HOME/.porcelain
 fi
 
 # Enable zoxide navigation
