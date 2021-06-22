@@ -1,3 +1,7 @@
+# Dotfile Backups #
+###################
+backups/
+
 # Compiled source #
 ###################
 *.com
