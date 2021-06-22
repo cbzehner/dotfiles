@@ -9,9 +9,9 @@ brew "jq"
 brew "mosh"
 brew "neovim"
 brew "tmux"
-brew "universal-ctags", args: ["HEAD"]
+# brew "universal-ctags", args: ["HEAD"]
 brew "vim"
-brew "watchman"
+# brew "zsh zsh-completions zsh-syntax-highlighting zsh-autosuggestions"
 brew "zsh"
 
 # Rust utilities
@@ -45,7 +45,6 @@ brew "libyaml" # should come after openssl
 brew "coreutils"
 brew "node"
 brew "yarn"
-cask "gpg-suite"
 
 # Databases
 brew "postgres", restart_service: :changed
