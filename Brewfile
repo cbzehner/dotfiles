@@ -1,44 +1,72 @@
-# A bundle of common Homebrew installations
+tap "homebrew/services"
+tap "universal-ctags/universal-ctags"
 
-# Requirements:
-# homebrew - http://brew.sh/
-# brew bundle - https://github.com/Homebrew/homebrew-bundle
+# Unix-style utilities
+brew "fzf"
+brew "git"
+brew "htop"
+brew "jq"
+brew "mosh"
+brew "neovim"
+brew "tmux"
+brew "universal-ctags", args: ["HEAD"]
+brew "vim"
+brew "watchman"
+brew "zsh"
 
-# Programming Languages and Helpers
-brew 'python3'
-brew "ruby"
+# Rust utilities
+brew "bat"
+brew "dust"
+brew "exa"
+brew "fastmod"
+brew "fd"
+# brew "hors"
+brew "hyperfine"
+brew "just"
+brew "mdcat"
+brew "procs"
+brew "ripgrep"
+brew "sd"
+brew "starship"
+brew "tealdeer"
+brew "tokei"
+brew "watchexec"
+brew "zoxide"
+
+# GitHub
+brew "gh"
+
+# Image manipulation
+brew "imagemagick"
+
+# Programming language prerequisites and package managers
+brew "openssl"
+brew "libyaml" # should come after openssl
+brew "coreutils"
 brew "node"
 brew "yarn"
-brew "postgresql", restart_service: :changed
+cask "gpg-suite"
 
-# Ruby Specific
-brew "direnv"
-brew "rbenv"
+# Databases
+brew "postgres", restart_service: :changed
+brew "redis", restart_service: :changed
 
-# Developer Environment
-brew 'fish'
-brew 'mosh'
-brew 'tmux'
-brew 'ripgrep'
-brew 'neovim'
-brew 'exa'
-brew 'bat'
-#
+# Fonts
+tap 'homebrew/cask-fonts'
+cask 'font-fira-code'
 
 # Casks
 cask_args appdir: '/Applications'
-tap 'caskroom/cask'
-tap 'caskroom/versions'
+tap 'homebrew/cask'
 
-# cask '1password' Change to LastPass
-cask 'google-chrome'
-cask 'dropbox'
+cask '1password'
+cask 'alacritty'
+cask 'amethyst'
+cask 'docker'
 cask 'firefox'
+cask 'google-chrome'
 cask 'spotify'
-cask 'vlc'
-cask 'vscode'
-# cask 'simpholders'
+cask 'signal'
 cask 'slack'
-# ase 'sqlitebrowser'
-# cask 'microsoft-office'
-# cask 'ynab'
+cask 'visual-studio-code'
+cask 'vlc'
