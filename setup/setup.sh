@@ -7,7 +7,7 @@
 # Set current directory to script location
 BASEDIR=$(dirname $0)
 
-source $BASEDIR/github-init.sh # Set up GitHub SSH keys
+source $BASEDIR/github.sh # Set up GitHub SSH keys
 
 # Set the XDG variables (https://specifications.freedesktop.org/basedir-spec/latest/ar01s03.html)
 XDG_CONFIG_HOME=$HOME/.config

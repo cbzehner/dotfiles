@@ -3,6 +3,8 @@
 # Symlink dotfiles to the home directory #
 ##########################################
 
+# TODO: Avoid overwriting XDG_CONFIG_HOME
+XDG_CONFIG_HOME=$HOME/.config
 source_directory=$XDG_CONFIG_HOME/dotfiles
 backup_directory=$source_directory/backups
 
