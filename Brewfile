@@ -59,7 +59,7 @@ cask 'font-fira-code-nerd-font'
 cask_args appdir: '/Applications'
 tap 'homebrew/cask'
 
-cask '1password'
+# cask '1password'
 cask 'alacritty'
 cask 'amethyst'
 cask 'docker'
