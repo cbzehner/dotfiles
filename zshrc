@@ -24,9 +24,19 @@ alias copy="tee >(pbcopy)"
 alias kc="kubectl"
 alias untar="tar -zxvf"
 
+alias disable-itunes="launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist"
+alias enable-itunes="launchctl load -w /System/Library/LaunchAgents/com.apple.rcd.plist"
+
 # Load porcelain, if present
 if [[ -f $HOME/.porcelain ]]; then
   source $HOME/.porcelain
+fi
+
+# Load nvm, if present
+if [ -d $HOME/.nvm ]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 fi
 
 # Enable zoxide navigation

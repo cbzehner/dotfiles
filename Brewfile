@@ -53,6 +53,7 @@ brew "redis", restart_service: :changed
 # Fonts
 tap 'homebrew/cask-fonts'
 cask 'font-fira-code'
+cask 'font-fira-code-nerd-font'
 
 # Casks
 cask_args appdir: '/Applications'

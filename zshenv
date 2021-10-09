@@ -13,3 +13,4 @@ typeset -U path
 path=($HOME/.bin $HOME/.cargo/bin $HOMEBREW_PREFIX/bin $path)
 
 source "$HOME/.cargo/env"
+. "$HOME/.cargo/env"
